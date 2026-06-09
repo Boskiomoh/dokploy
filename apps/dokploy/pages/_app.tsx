@@ -5,7 +5,7 @@ import type { AppProps } from "next/app";
 import { Inter } from "next/font/google";
 import Head from "next/head";
 import { ThemeProvider } from "next-themes";
-import NextTopLoader from "nextjs-toploader";
+import { NobusRouteLoader } from "@/components/ui/nobus-route-loader";
 import type { ReactElement, ReactNode } from "react";
 import { SearchCommand } from "@/components/dashboard/search-command";
 import { WhitelabelingProvider } from "@/components/proprietary/whitelabeling/whitelabeling-provider";
@@ -48,7 +48,7 @@ const MyApp = ({
 				disableTransitionOnChange
 				forcedTheme={Component.theme}
 			>
-				<NextTopLoader color="hsl(var(--sidebar-ring))" />
+				<NobusRouteLoader />
 				<WhitelabelingProvider />
 				<Toaster richColors />
 				<SearchCommand />
