@@ -39,7 +39,7 @@ const MyApp = ({
 				`}
 			</style>
 			<Head>
-				<title>Dokploy</title>
+				<title>Nobus Cloud</title>
 			</Head>
 			<ThemeProvider
 				attribute="class"

@@ -3,8 +3,8 @@ import { ArrowRight, Rocket, Server } from "lucide-react";
 import Link from "next/link";
 import { useMemo } from "react";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 import { api } from "@/utils/api";
+
 
 type DeploymentStatus = "idle" | "running" | "done" | "error";
 
@@ -19,7 +19,7 @@ function getServiceInfo(d: any) {
 	const app = d.application;
 	const comp = d.compose;
 	const serverName: string =
-		d.server?.name ?? app?.server?.name ?? comp?.server?.name ?? "Dokploy";
+		d.server?.name ?? app?.server?.name ?? comp?.server?.name ?? "Nobus Cloud";
 	if (app?.environment?.project && app.environment) {
 		return {
 			name: app.name as string,
@@ -51,7 +51,7 @@ function StatCard({
 	delta?: string;
 }) {
 	return (
-		<div className="rounded-xl border bg-background p-5 min-h-[140px] flex flex-col justify-between">
+		<div className="rounded-xl shadow-sm bg-background p-5 min-h-[140px] flex flex-col justify-between">
 			<span className="text-xs uppercase tracking-wider text-muted-foreground">
 				{label}
 			</span>
@@ -73,7 +73,7 @@ function StatusListCard({
 	items: { dotClass: string; label: string; count: number }[];
 }) {
 	return (
-		<div className="rounded-xl border bg-background p-5 min-h-[140px] flex flex-col gap-3">
+		<div className="rounded-xl shadow-sm bg-background p-5 min-h-[140px] flex flex-col gap-3">
 			<span className="text-xs uppercase tracking-wider text-muted-foreground">
 				{label}
 			</span>
@@ -163,8 +163,7 @@ export const ShowHome = () => {
 
 	return (
 		<div className="w-full">
-			<Card className="h-full bg-sidebar p-2.5 rounded-xl min-h-[85vh]">
-				<div className="rounded-xl bg-background shadow-md p-6 flex flex-col gap-6 h-full">
+			<div className="flex flex-col gap-6 h-full p-2">
 					<div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
 						<h1 className="text-3xl font-semibold tracking-tight">
 							{firstName ? `Welcome back, ${firstName}` : "Welcome back"}
@@ -215,7 +214,7 @@ export const ShowHome = () => {
 						/>
 					</div>
 
-					<div className="rounded-xl border bg-background">
+					<div className="rounded-xl shadow-sm bg-background">
 						<div className="flex items-center justify-between px-5 py-4 border-b">
 							<div className="flex items-center gap-2">
 								<Rocket className="size-4 text-muted-foreground" />
@@ -284,8 +283,7 @@ export const ShowHome = () => {
 							</ul>
 						)}
 					</div>
-				</div>
-			</Card>
+			</div>
 		</div>
 	);
 };

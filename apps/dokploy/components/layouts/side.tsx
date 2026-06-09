@@ -9,7 +9,6 @@ import {
 	BotIcon,
 	Boxes,
 	ChevronRight,
-	ChevronsUpDown,
 	CircleHelp,
 	ClipboardList,
 	Clock,
@@ -22,7 +21,6 @@ import {
 	House,
 	Key,
 	KeyRound,
-	Loader2,
 	LogIn,
 	type LucideIcon,
 	Package,
@@ -31,9 +29,7 @@ import {
 	Rocket,
 	Server,
 	ShieldCheck,
-	Star,
 	Tags,
-	Trash2,
 	User,
 	Users,
 } from "lucide-react";
@@ -57,7 +53,6 @@ import {
 	DropdownMenuContent,
 	DropdownMenuItem,
 	DropdownMenuLabel,
-	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Separator } from "@/components/ui/separator";
@@ -85,9 +80,7 @@ import { authClient } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
 import type { AppRouter } from "@/server/api/root";
 import { api } from "@/utils/api";
-import { AddOrganization } from "../dashboard/organization/handle-organization";
 import { DialogAction } from "../shared/dialog-action";
-import { Logo } from "../shared/logo";
 import { Button } from "../ui/button";
 import { TimeBadge } from "../ui/time-badge";
 import { UpdateServerButton } from "./update-server";
@@ -547,324 +540,120 @@ function LogoWrapper() {
 
 function SidebarLogo() {
 	const { state } = useSidebar();
-	const { data: isCloud } = api.settings.isCloud.useQuery();
-	const { data: user } = api.user.get.useQuery();
-	const { data: session } = api.user.session.useQuery();
-	const {
-		data: organizations,
-		refetch,
-		isLoading,
-	} = api.organization.all.useQuery();
-	const { mutateAsync: deleteOrganization, isPending: isRemoving } =
-		api.organization.delete.useMutation();
-	const { mutateAsync: setDefaultOrganization, isPending: isSettingDefault } =
-		api.organization.setDefault.useMutation();
 	const { isMobile } = useSidebar();
 	const isCollapsed = state === "collapsed" && !isMobile;
-	const { data: activeOrganization } = api.organization.active.useQuery();
 
 	const { data: invitations, refetch: refetchInvitations } =
 		api.user.getInvitations.useQuery();
 
-	const [_activeTeam, setActiveTeam] = useState<
-		typeof activeOrganization | null
-	>(null);
-
-	useEffect(() => {
-		if (activeOrganization) {
-			setActiveTeam(activeOrganization);
-		}
-	}, [activeOrganization]);
-
 	return (
-		<>
-			{isLoading ? (
-				<div className="flex flex-row gap-2 items-center justify-center text-sm text-muted-foreground min-h-[5vh] pt-4">
-					<Loader2 className="animate-spin size-4" />
-				</div>
-			) : (
-				<SidebarMenu
+		<SidebarMenu
+			className={cn(
+				"flex gap-2",
+				isCollapsed ? "flex-col" : "flex-row justify-between items-center",
+			)}
+		>
+			{/* Organization Logo and Selector */}
+			<SidebarMenuItem className={"w-full"}>
+				<div
 					className={cn(
-						"flex gap-2",
-						isCollapsed ? "flex-col" : "flex-row justify-between items-center",
+						"flex items-center gap-2 px-2 py-1 select-none",
+						isCollapsed ? "justify-center h-10 w-10 mx-auto" : "h-12 w-full",
 					)}
 				>
-					{/* Organization Logo and Selector */}
-					<SidebarMenuItem className={"w-full"}>
-						<DropdownMenu>
-							<DropdownMenuTrigger asChild>
-								<SidebarMenuButton
-									size={isCollapsed ? "sm" : "lg"}
-									className={cn(
-										"data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground",
-										isCollapsed &&
-											"flex justify-center items-center p-2 h-10 w-10 mx-auto",
-									)}
-								>
-									<div
-										className={cn(
-											"flex items-center gap-2",
-											isCollapsed && "justify-center",
-										)}
-									>
-										<div
-											className={cn(
-												"flex items-center justify-center rounded-sm border",
-												"size-6",
-											)}
+					{/* biome-ignore lint/performance/noImgElement: Nobus logo */}
+					<img
+						src="/nobus-logo.png"
+						alt="Nobus logo"
+						className={cn(
+							"object-contain transition-all",
+							isCollapsed ? "h-6 w-6" : "h-7 w-auto",
+						)}
+					/>
+				</div>
+			</SidebarMenuItem>
+
+			{/* Notification Bell */}
+			<SidebarMenuItem className={cn(isCollapsed && "mt-2")}>
+				<DropdownMenu>
+					<DropdownMenuTrigger asChild>
+						<Button
+							variant="ghost"
+							size="icon"
+							className={cn(
+								"relative",
+								isCollapsed && "h-8 w-8 p-1.5 mx-auto",
+							)}
+						>
+							<Bell className="size-4" />
+							{invitations && invitations.length > 0 && (
+								<span className="absolute -top-0 -right-0 flex size-4 items-center justify-center rounded-full bg-blue-500 text-xs text-white">
+									{invitations.length}
+								</span>
+							)}
+						</Button>
+					</DropdownMenuTrigger>
+					<DropdownMenuContent
+						align="start"
+						side={"right"}
+						className="w-80"
+					>
+						<DropdownMenuLabel>Pending Invitations</DropdownMenuLabel>
+						<div className="flex flex-col gap-2">
+							{invitations && invitations.length > 0 ? (
+								invitations.map((invitation) => (
+									<div key={invitation.id} className="flex flex-col gap-2">
+										<DropdownMenuItem
+											className="flex flex-col items-start gap-1 p-3"
+											onSelect={(e) => e.preventDefault()}
 										>
-											<Logo
-												className={cn(
-													"transition-all",
-													isCollapsed ? "size-4" : "size-5",
-												)}
-												logoUrl={activeOrganization?.logo || undefined}
-											/>
-										</div>
-										<div
-											className={cn(
-												"flex flex-col items-start",
-												isCollapsed && "hidden",
-											)}
-										>
-											<p className="text-sm font-medium leading-none">
-												{activeOrganization?.name ?? "Select Organization"}
-											</p>
-										</div>
-									</div>
-									<ChevronsUpDown
-										className={cn("ml-auto", isCollapsed && "hidden")}
-									/>
-								</SidebarMenuButton>
-							</DropdownMenuTrigger>
-							<DropdownMenuContent
-								className="rounded-lg max-h-[min(70vh,28rem)] flex flex-col"
-								align="start"
-								side={isMobile ? "bottom" : "right"}
-								sideOffset={4}
-							>
-								<DropdownMenuLabel className="text-xs text-muted-foreground shrink-0">
-									Organizations
-								</DropdownMenuLabel>
-								<div className="overflow-y-auto overflow-x-hidden min-h-0 -mx-1 px-1">
-									{organizations?.map((org) => {
-										const isDefault = org.members?.[0]?.isDefault ?? false;
-										return (
-											<div
-												className="flex flex-row justify-between"
-												key={org.name}
-											>
-												<DropdownMenuItem
-													onClick={async () => {
-														await authClient.organization.setActive({
-															organizationId: org.id,
-														});
-														window.location.reload();
-													}}
-													className="w-full gap-2 p-2"
-												>
-													<div className="flex flex-col gap-1">
-														<div className="flex items-center gap-2">
-															{org.name}
-														</div>
-													</div>
-													<div className="flex size-6 items-center justify-center rounded-sm border">
-														<Logo
-															className={cn(
-																"transition-all",
-																state === "collapsed" ? "size-6" : "size-10",
-															)}
-															logoUrl={org.logo ?? undefined}
-														/>
-													</div>
-												</DropdownMenuItem>
-
-												<div className="flex items-center gap-2">
-													<Button
-														variant="ghost"
-														size="icon"
-														className={cn(
-															"group",
-															isDefault
-																? "hover:bg-yellow-500/10"
-																: "hover:bg-blue-500/10",
-														)}
-														isLoading={isSettingDefault && !isDefault}
-														disabled={isDefault}
-														onClick={async (e) => {
-															if (isDefault) return;
-															e.stopPropagation();
-															await setDefaultOrganization({
-																organizationId: org.id,
-															})
-																.then(() => {
-																	refetch();
-																	toast.success("Default organization updated");
-																})
-																.catch((error) => {
-																	toast.error(
-																		error?.message ||
-																			"Error setting default organization",
-																	);
-																});
-														}}
-														title={
-															isDefault
-																? "Default organization"
-																: "Set as default"
-														}
-													>
-														{isDefault ? (
-															<Star
-																fill="#eab308"
-																stroke="#eab308"
-																className="size-4 text-yellow-500"
-															/>
-														) : (
-															<Star
-																fill="none"
-																stroke="currentColor"
-																className="size-4 text-gray-400 group-hover:text-blue-500 transition-colors"
-															/>
-														)}
-													</Button>
-													{org.ownerId === session?.user?.id && (
-														<>
-															<AddOrganization organizationId={org.id} />
-															<DialogAction
-																title="Delete Organization"
-																description="Are you sure you want to delete this organization?"
-																type="destructive"
-																onClick={async () => {
-																	await deleteOrganization({
-																		organizationId: org.id,
-																	})
-																		.then(() => {
-																			refetch();
-																			toast.success(
-																				"Organization deleted successfully",
-																			);
-																		})
-																		.catch((error) => {
-																			toast.error(
-																				error?.message ||
-																					"Error deleting organization",
-																			);
-																		});
-																}}
-															>
-																<Button
-																	variant="ghost"
-																	size="icon"
-																	className="group hover:bg-red-500/10"
-																	isLoading={isRemoving}
-																>
-																	<Trash2 className="size-4 text-primary group-hover:text-red-500" />
-																</Button>
-															</DialogAction>
-														</>
-													)}
-												</div>
+											<div className="font-medium">
+												{invitation?.organization?.name}
 											</div>
-										);
-									})}
-								</div>
-								{(user?.role === "owner" ||
-									user?.role === "admin" ||
-									isCloud) && (
-									<>
-										<DropdownMenuSeparator />
-										<AddOrganization />
-									</>
-								)}
-							</DropdownMenuContent>
-						</DropdownMenu>
-					</SidebarMenuItem>
-
-					{/* Notification Bell */}
-					<SidebarMenuItem className={cn(isCollapsed && "mt-2")}>
-						<DropdownMenu>
-							<DropdownMenuTrigger asChild>
-								<Button
-									variant="ghost"
-									size="icon"
-									className={cn(
-										"relative",
-										isCollapsed && "h-8 w-8 p-1.5 mx-auto",
-									)}
-								>
-									<Bell className="size-4" />
-									{invitations && invitations.length > 0 && (
-										<span className="absolute -top-0 -right-0 flex size-4 items-center justify-center rounded-full bg-blue-500 text-xs text-white">
-											{invitations.length}
-										</span>
-									)}
-								</Button>
-							</DropdownMenuTrigger>
-							<DropdownMenuContent
-								align="start"
-								side={"right"}
-								className="w-80"
-							>
-								<DropdownMenuLabel>Pending Invitations</DropdownMenuLabel>
-								<div className="flex flex-col gap-2">
-									{invitations && invitations.length > 0 ? (
-										invitations.map((invitation) => (
-											<div key={invitation.id} className="flex flex-col gap-2">
-												<DropdownMenuItem
-													className="flex flex-col items-start gap-1 p-3"
-													onSelect={(e) => e.preventDefault()}
-												>
-													<div className="font-medium">
-														{invitation?.organization?.name}
-													</div>
-													<div className="text-xs text-muted-foreground">
-														Expires:{" "}
-														{new Date(invitation.expiresAt).toLocaleString()}
-													</div>
-													<div className="text-xs text-muted-foreground">
-														Role: {invitation.role}
-													</div>
-												</DropdownMenuItem>
-												<DialogAction
-													title="Accept Invitation"
-													description="Are you sure you want to accept this invitation?"
-													type="default"
-													onClick={async () => {
-														const { error } =
-															await authClient.organization.acceptInvitation({
-																invitationId: invitation.id,
-															});
-
-														if (error) {
-															toast.error(
-																error.message || "Error accepting invitation",
-															);
-														} else {
-															toast.success("Invitation accepted successfully");
-															await refetchInvitations();
-															await refetch();
-														}
-													}}
-												>
-													<Button size="sm" variant="secondary">
-														Accept Invitation
-													</Button>
-												</DialogAction>
+											<div className="text-xs text-muted-foreground">
+												Expires:{" "}
+												{new Date(invitation.expiresAt).toLocaleString()}
 											</div>
-										))
-									) : (
-										<DropdownMenuItem disabled>
-											No pending invitations
+											<div className="text-xs text-muted-foreground">
+												Role: {invitation.role}
+											</div>
 										</DropdownMenuItem>
-									)}
-								</div>
-							</DropdownMenuContent>
-						</DropdownMenu>
-					</SidebarMenuItem>
-				</SidebarMenu>
-			)}
-		</>
+										<DialogAction
+											title="Accept Invitation"
+											description="Are you sure you want to accept this invitation?"
+											type="default"
+											onClick={async () => {
+												const { error } =
+													await authClient.organization.acceptInvitation({
+														invitationId: invitation.id,
+													});
+
+												if (error) {
+													toast.error(
+														error.message || "Error accepting invitation",
+													);
+												} else {
+													toast.success("Invitation accepted successfully");
+													await refetchInvitations();
+												}
+											}}
+										>
+											<Button size="sm" variant="secondary">
+												Accept Invitation
+											</Button>
+										</DialogAction>
+									</div>
+								))
+							) : (
+								<DropdownMenuItem disabled>
+									No pending invitations
+								</DropdownMenuItem>
+							)}
+						</div>
+					</DropdownMenuContent>
+				</DropdownMenu>
+			</SidebarMenuItem>
+		</SidebarMenu>
 	);
 }
 
@@ -980,7 +769,10 @@ export default function Page({ children }: Props) {
 												<SidebarMenuButton
 													asChild
 													tooltip={item.title}
-													className={cn(isActive && "bg-border")}
+													className={cn(
+														"text-gray-400 hover:text-white hover:bg-white/5 transition-colors duration-200 relative",
+														isActive && "bg-white/10 text-white font-medium"
+													)}
 												>
 													<Link
 														href={item.url}
@@ -988,10 +780,13 @@ export default function Page({ children }: Props) {
 													>
 														{item.icon && (
 															<item.icon
-																className={cn(isActive && "text-primary")}
+																className={cn(isActive ? "text-[#0070f3]" : "text-gray-400")}
 															/>
 														)}
 														<span>{item.title}</span>
+														{isActive && (
+															<span className="absolute right-0 top-1/2 -translate-y-1/2 w-1 h-5 bg-[#0070f3] rounded-l" />
+														)}
 													</Link>
 												</SidebarMenuButton>
 											) : (
@@ -999,9 +794,16 @@ export default function Page({ children }: Props) {
 													<CollapsibleTrigger asChild>
 														<SidebarMenuButton
 															tooltip={item.title}
-															isActive={isActive}
+															className={cn(
+																"text-gray-400 hover:text-white hover:bg-white/5 transition-colors duration-200",
+																isActive && "text-white font-semibold"
+															)}
 														>
-															{item.icon && <item.icon />}
+															{item.icon && (
+																<item.icon
+																	className={cn(isActive ? "text-[#0070f3]" : "text-gray-400")}
+																/>
+															)}
 
 															<span>{item.title}</span>
 															{item.items?.length && (
@@ -1011,31 +813,40 @@ export default function Page({ children }: Props) {
 													</CollapsibleTrigger>
 													<CollapsibleContent>
 														<SidebarMenuSub>
-															{item.items?.map((subItem) => (
-																<SidebarMenuSubItem key={subItem.title}>
-																	<SidebarMenuSubButton
-																		asChild
-																		className={cn(isActive && "bg-border")}
-																	>
-																		<Link
-																			href={subItem.url}
-																			className="flex w-full items-center"
-																		>
-																			{subItem.icon && (
-																				<span className="mr-2">
-																					<subItem.icon
-																						className={cn(
-																							"h-4 w-4 text-muted-foreground",
-																							isActive && "text-primary",
-																						)}
-																					/>
-																				</span>
+															{item.items?.map((subItem) => {
+																const isSubActive = isActiveRoute({ itemUrl: subItem.url, pathname });
+																return (
+																	<SidebarMenuSubItem key={subItem.title}>
+																		<SidebarMenuSubButton
+																			asChild
+																			className={cn(
+																				"text-gray-400 hover:text-white hover:bg-white/5 transition-colors duration-200 relative",
+																				isSubActive && "text-white font-medium bg-white/10"
 																			)}
-																			<span>{subItem.title}</span>
-																		</Link>
-																	</SidebarMenuSubButton>
-																</SidebarMenuSubItem>
-															))}
+																		>
+																			<Link
+																				href={subItem.url}
+																				className="flex w-full items-center"
+																			>
+																				{subItem.icon && (
+																					<span className="mr-2">
+																						<subItem.icon
+																							className={cn(
+																								"h-4 w-4",
+																								isSubActive ? "text-[#0070f3]" : "text-gray-400",
+																							)}
+																						/>
+																					</span>
+																				)}
+																				<span>{subItem.title}</span>
+																				{isSubActive && (
+																					<span className="absolute right-0 top-1/2 -translate-y-1/2 w-1 h-4 bg-[#0070f3] rounded-l" />
+																				)}
+																			</Link>
+																		</SidebarMenuSubButton>
+																	</SidebarMenuSubItem>
+																);
+															})}
 														</SidebarMenuSub>
 													</CollapsibleContent>
 												</>
@@ -1069,7 +880,10 @@ export default function Page({ children }: Props) {
 												<SidebarMenuButton
 													asChild
 													tooltip={item.title}
-													className={cn(isActive && "bg-border")}
+													className={cn(
+														"text-gray-400 hover:text-white hover:bg-white/5 transition-colors duration-200 relative",
+														isActive && "bg-white/10 text-white font-medium"
+													)}
 												>
 													<Link
 														href={item.url}
@@ -1077,10 +891,13 @@ export default function Page({ children }: Props) {
 													>
 														{item.icon && (
 															<item.icon
-																className={cn(isActive && "text-primary")}
+																className={cn(isActive ? "text-[#0070f3]" : "text-gray-400")}
 															/>
 														)}
 														<span>{item.title}</span>
+														{isActive && (
+															<span className="absolute right-0 top-1/2 -translate-y-1/2 w-1 h-5 bg-[#0070f3] rounded-l" />
+														)}
 													</Link>
 												</SidebarMenuButton>
 											) : (
@@ -1088,9 +905,16 @@ export default function Page({ children }: Props) {
 													<CollapsibleTrigger asChild>
 														<SidebarMenuButton
 															tooltip={item.title}
-															isActive={isActive}
+															className={cn(
+																"text-gray-400 hover:text-white hover:bg-white/5 transition-colors duration-200",
+																isActive && "text-white font-semibold"
+															)}
 														>
-															{item.icon && <item.icon />}
+															{item.icon && (
+																<item.icon
+																	className={cn(isActive ? "text-[#0070f3]" : "text-gray-400")}
+																/>
+															)}
 
 															<span>{item.title}</span>
 															{item.items?.length && (
@@ -1100,31 +924,40 @@ export default function Page({ children }: Props) {
 													</CollapsibleTrigger>
 													<CollapsibleContent>
 														<SidebarMenuSub>
-															{item.items?.map((subItem) => (
-																<SidebarMenuSubItem key={subItem.title}>
-																	<SidebarMenuSubButton
-																		asChild
-																		className={cn(isActive && "bg-border")}
-																	>
-																		<Link
-																			href={subItem.url}
-																			className="flex w-full items-center"
-																		>
-																			{subItem.icon && (
-																				<span className="mr-2">
-																					<subItem.icon
-																						className={cn(
-																							"h-4 w-4 text-muted-foreground",
-																							isActive && "text-primary",
-																						)}
-																					/>
-																				</span>
+															{item.items?.map((subItem) => {
+																const isSubActive = isActiveRoute({ itemUrl: subItem.url, pathname });
+																return (
+																	<SidebarMenuSubItem key={subItem.title}>
+																		<SidebarMenuSubButton
+																			asChild
+																			className={cn(
+																				"text-gray-400 hover:text-white hover:bg-white/5 transition-colors duration-200 relative",
+																				isSubActive && "text-white font-medium bg-white/10"
 																			)}
-																			<span>{subItem.title}</span>
-																		</Link>
-																	</SidebarMenuSubButton>
-																</SidebarMenuSubItem>
-															))}
+																		>
+																			<Link
+																				href={subItem.url}
+																				className="flex w-full items-center"
+																			>
+																				{subItem.icon && (
+																					<span className="mr-2">
+																						<subItem.icon
+																							className={cn(
+																								"h-4 w-4",
+																								isSubActive ? "text-[#0070f3]" : "text-gray-400",
+																							)}
+																						/>
+																					</span>
+																				)}
+																				<span>{subItem.title}</span>
+																				{isSubActive && (
+																					<span className="absolute right-0 top-1/2 -translate-y-1/2 w-1 h-4 bg-[#0070f3] rounded-l" />
+																				)}
+																			</Link>
+																		</SidebarMenuSubButton>
+																	</SidebarMenuSubItem>
+																);
+															})}
 														</SidebarMenuSub>
 													</CollapsibleContent>
 												</>

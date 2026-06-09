@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+  <defs>
+    <linearGradient id="nb-grad" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0070f3"/>
+      <stop offset="100%" stop-color="#00b4d8"/>
+    </linearGradient>
+  </defs>
+  <!-- Background pill -->
+  <rect width="32" height="32" rx="7" fill="#0a1628"/>
+  <!-- Stylised N letterform -->
+  <path d="M7 24V8h4l10 11V8h4v16h-4L11 13v11H7Z" fill="url(#nb-grad)"/>
+</svg>

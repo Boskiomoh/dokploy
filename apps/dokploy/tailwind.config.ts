@@ -38,8 +38,8 @@ const config = {
 				background: "hsl(var(--background))",
 				foreground: "hsl(var(--foreground))",
 				primary: {
-					DEFAULT: "hsl(var(--primary))",
-					foreground: "hsl(var(--primary-foreground))",
+					DEFAULT: "#0070f3",
+					foreground: "#ffffff",
 				},
 				secondary: {
 					DEFAULT: "hsl(var(--secondary))",
@@ -74,6 +74,18 @@ const config = {
 					"accent-foreground": "hsl(var(--sidebar-accent-foreground))",
 					border: "hsl(var(--sidebar-border))",
 					ring: "hsl(var(--sidebar-ring))",
+				},
+				// ── Nobus brand palette ───────────────────────────────────────────
+				nobus: {
+					blue: "#0070f3",
+					"blue-light": "#3291ff",
+					"blue-dark": "#0050c8",
+					cyan: "#00b4d8",
+					dark: "#0a1628",
+					"dark-mid": "#0b1a36",
+					"dark-light": "#1a2a4a",
+					slate: "#1e3a5f",
+					muted: "#94a3b8",
 				},
 			},
 			borderRadius: {
