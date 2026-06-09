@@ -5,10 +5,10 @@ import type { AppProps } from "next/app";
 import { Inter } from "next/font/google";
 import Head from "next/head";
 import { ThemeProvider } from "next-themes";
-import { NobusRouteLoader } from "@/components/ui/nobus-route-loader";
 import type { ReactElement, ReactNode } from "react";
 import { SearchCommand } from "@/components/dashboard/search-command";
 import { WhitelabelingProvider } from "@/components/proprietary/whitelabeling/whitelabeling-provider";
+import { NobusRouteLoader } from "@/components/ui/nobus-route-loader";
 import { Toaster } from "@/components/ui/sonner";
 import { api } from "@/utils/api";
 

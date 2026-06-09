@@ -41,10 +41,7 @@ export const NobusRouteLoader = () => {
 
 			{/* Centred Nobus logo level-fill spinner */}
 			<div className="relative flex flex-col items-center gap-3">
-				<NobusLoader size={72} />
-				<span className="text-xs tracking-widest uppercase text-muted-foreground animate-pulse select-none">
-					Nobus Cloud
-				</span>
+				<NobusLoader size={288} />
 			</div>
 		</div>
 	);
