@@ -172,7 +172,7 @@ const MENU: Menu = {
 		},
 		{
 			isSingle: true,
-			title: "Schedules",
+			title: "Automations",
 			url: "/dashboard/schedules",
 			icon: Clock,
 			// Only enabled in non-cloud environments
@@ -181,7 +181,7 @@ const MENU: Menu = {
 		},
 		{
 			isSingle: true,
-			title: "Traefik File System",
+			title: "Networking & Routing",
 			url: "/dashboard/traefik",
 			icon: GalleryVerticalEnd,
 			// Only enabled for users with access to Traefik files in non-cloud environments
@@ -190,7 +190,7 @@ const MENU: Menu = {
 		},
 		{
 			isSingle: true,
-			title: "Docker",
+			title: "Container Registry",
 			url: "/dashboard/docker",
 			icon: BlocksIcon,
 			// Only enabled for users with access to Docker in non-cloud environments
@@ -199,7 +199,7 @@ const MENU: Menu = {
 		},
 		{
 			isSingle: true,
-			title: "Swarm",
+			title: "Cluster Management",
 			url: "/dashboard/swarm",
 			icon: PieChart,
 			// Only enabled for users with access to Docker in non-cloud environments
@@ -393,8 +393,8 @@ const MENU: Menu = {
 			title: "License",
 			url: "/dashboard/settings/license",
 			icon: Key,
-			// Only enabled for owners
-			isEnabled: ({ auth }) => !!(auth?.role === "owner"),
+			// Hide the license tab for Nobus
+			isEnabled: () => false,
 		},
 		{
 			isSingle: true,
@@ -689,7 +689,6 @@ export default function Page({ children }: Props) {
 	const pathname = usePathname();
 	const { data: auth } = api.user.get.useQuery();
 	const { data: permissions } = api.user.getPermissions.useQuery();
-	const { data: dokployVersion } = api.settings.getDokployVersion.useQuery();
 	const { data: whitelabeling } = api.whitelabeling.get.useQuery(undefined, {
 		staleTime: 5 * 60 * 1000,
 		refetchOnWindowFocus: false,
@@ -780,6 +779,7 @@ export default function Page({ children }: Props) {
 													>
 														{item.icon && (
 															<item.icon
+																strokeWidth={1.5}
 																className={cn(isActive ? "text-[#0070f3]" : "text-gray-400")}
 															/>
 														)}
@@ -801,6 +801,7 @@ export default function Page({ children }: Props) {
 														>
 															{item.icon && (
 																<item.icon
+																	strokeWidth={1.5}
 																	className={cn(isActive ? "text-[#0070f3]" : "text-gray-400")}
 																/>
 															)}
@@ -891,6 +892,7 @@ export default function Page({ children }: Props) {
 													>
 														{item.icon && (
 															<item.icon
+																strokeWidth={1.5}
 																className={cn(isActive ? "text-[#0070f3]" : "text-gray-400")}
 															/>
 														)}
@@ -1006,11 +1008,7 @@ export default function Page({ children }: Props) {
 								{whitelabeling.footerText}
 							</div>
 						)}
-						{dokployVersion && (
-							<div className="px-3 text-xs text-muted-foreground text-center group-data-[collapsible=icon]:hidden">
-								Version {dokployVersion}
-							</div>
-						)}
+
 					</SidebarMenu>
 				</SidebarFooter>
 				<SidebarRail />

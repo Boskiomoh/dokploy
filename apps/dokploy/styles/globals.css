@@ -29,11 +29,11 @@
 		--destructive: 0 84.2% 50.2%;
 		--destructive-foreground: 0 0% 98%;
 
-		--border: 240 5.9% 90%;
+		--border: 220 20% 94%;
 		--input: 240 5.9% 90%;
 		--ring: 212.4 100% 47.6%;
 
-		--radius: 0.5rem;
+		--radius: 1rem;
 		--overlay: rgba(0, 0, 0, 0.2);
 
 		--chart-1: 173 58% 39%;
@@ -280,4 +280,21 @@
 
 #hubspot-conversations-iframe {
 	color-scheme: light !important;
+}
+
+/* ── Nobus Loader: bottom-to-top fill animation ───────────────────────────── */
+@keyframes fillLevel {
+	0%   { clip-path: inset(100% 0 0 0); }
+	50%  { clip-path: inset(0% 0 0 0); }
+	100% { clip-path: inset(100% 0 0 0); }
+}
+
+.nobus-fill {
+	animation: fillLevel 2s ease-in-out infinite;
+}
+
+@layer utilities {
+	.animate-nobus-level {
+		animation: fillLevel 2s ease-in-out infinite;
+	}
 }

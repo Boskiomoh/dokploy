@@ -118,11 +118,17 @@ const config = {
 						height: "0",
 					},
 				},
+				"fillLevel": {
+					"0%": { "clip-path": "inset(100% 0 0 0)" },
+					"50%": { "clip-path": "inset(0% 0 0 0)" },
+					"100%": { "clip-path": "inset(100% 0 0 0)" },
+				},
 			},
 			animation: {
 				"caret-blink": "caret-blink 1.25s ease-out infinite",
 				"accordion-down": "accordion-down 0.2s ease-out",
 				"accordion-up": "accordion-up 0.2s ease-out",
+				"nobus-level": "fillLevel 2s ease-in-out infinite",
 			},
 		},
 	},

@@ -39,15 +39,14 @@ export const UserNav = () => {
 							src={data?.user?.image || ""}
 							alt={data?.user?.image || ""}
 						/>
-						<AvatarFallback className="rounded-lg">
+						<AvatarFallback className="rounded-lg bg-[#0070f3] text-white">
 							{getFallbackAvatarInitials(
 								`${data?.user?.firstName} ${data?.user?.lastName}`.trim(),
 							)}
 						</AvatarFallback>
 					</Avatar>
 					<div className="grid flex-1 text-left text-sm leading-tight">
-						<span className="truncate font-semibold">Account</span>
-						<span className="truncate text-xs">{data?.user?.email}</span>
+						<span className="truncate font-semibold text-[13px] tracking-wide">Account Settings</span>
 					</div>
 					<ChevronsUpDown className="ml-auto size-4" />
 				</SidebarMenuButton>

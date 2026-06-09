@@ -18,7 +18,6 @@ import { SignInWithGithub } from "@/components/proprietary/auth/sign-in-with-git
 import { SignInWithGoogle } from "@/components/proprietary/auth/sign-in-with-google";
 import { SignInWithSSO } from "@/components/proprietary/sso/sign-in-with-sso";
 import { AlertBlock } from "@/components/shared/alert-block";
-import { Logo } from "@/components/shared/logo";
 import { Button } from "@/components/ui/button";
 import { CardContent, CardDescription } from "@/components/ui/card";
 import {
@@ -216,7 +215,7 @@ export default function Home({ IS_CLOUD, enforceSSO }: Props) {
 							</FormItem>
 						)}
 					/>
-					<Button className="w-full" type="submit" isLoading={isLoginLoading}>
+					<Button className="w-full bg-[#0070f3] hover:bg-[#0070f3]/90 shadow-lg shadow-blue-500/50 text-white" type="submit" isLoading={isLoginLoading}>
 						Login
 					</Button>
 				</form>
@@ -229,15 +228,8 @@ export default function Home({ IS_CLOUD, enforceSSO }: Props) {
 			<div className="flex flex-col space-y-2 text-center">
 				<h1 className="text-2xl font-semibold tracking-tight">
 					<div className="flex flex-row items-center justify-center gap-2">
-						<Logo
-							className="size-12"
-							logoUrl={
-								whitelabeling?.loginLogoUrl ||
-								whitelabeling?.logoUrl ||
-								undefined
-							}
-						/>
-						Sign in
+
+						Sign in to Nobus Cloud Management
 					</div>
 				</h1>
 				<p className="text-sm text-muted-foreground">
@@ -380,22 +372,12 @@ export default function Home({ IS_CLOUD, enforceSSO }: Props) {
 					</div>
 
 					<div className="mt-4 text-sm flex flex-row justify-center gap-2">
-						{IS_CLOUD ? (
-							<Link
-								className="hover:underline text-muted-foreground"
-								href="/send-reset-password"
-							>
-								Lost your password?
-							</Link>
-						) : (
-							<Link
-								className="hover:underline text-muted-foreground"
-								href="https://docs.dokploy.com/docs/core/reset-password"
-								target="_blank"
-							>
-								Lost your password?
-							</Link>
-						)}
+						<Link
+							className="hover:underline text-muted-foreground"
+							href="/send-reset-password"
+						>
+							Lost your password?
+						</Link>
 					</div>
 				</div>
 				<div className="p-2" />

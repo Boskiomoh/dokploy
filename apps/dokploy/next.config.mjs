@@ -6,6 +6,7 @@
 /** @type {import("next").NextConfig} */
 const nextConfig = {
 	reactStrictMode: true,
+	allowedDevOrigins: ["102.209.46.132"],
 	typescript: {
 		ignoreBuildErrors: true,
 	},
