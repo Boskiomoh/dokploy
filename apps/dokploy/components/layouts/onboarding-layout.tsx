@@ -23,11 +23,7 @@ export const OnboardingLayout = ({ children }: Props) => {
 						backgroundImage: "repeating-radial-gradient(circle at 100% 50%, transparent 0, transparent 60px, rgba(255,255,255,0.03) 61px, transparent 62px)"
 					}}
 				/>
-				<img 
-					src="/nobus-logo.png" 
-					alt="Nobus" 
-					className="relative z-20 w-56 drop-shadow-2xl" 
-				/>
+
 			</div>
 			<div className="w-full">
 				<div className="flex w-full flex-col justify-center space-y-6 max-w-lg mx-auto">

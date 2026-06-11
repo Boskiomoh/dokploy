@@ -12,7 +12,6 @@ import { OnboardingLayout } from "@/components/layouts/onboarding-layout";
 import { SignInWithGithub } from "@/components/proprietary/auth/sign-in-with-github";
 import { SignInWithGoogle } from "@/components/proprietary/auth/sign-in-with-google";
 import { AlertBlock } from "@/components/shared/alert-block";
-import { Logo } from "@/components/shared/logo";
 import { Button } from "@/components/ui/button";
 import { CardContent, CardDescription, CardTitle } from "@/components/ui/card";
 import {
@@ -125,16 +124,6 @@ const Register = ({ isCloud }: Props) => {
 			<div className="flex  w-full items-center justify-center ">
 				<div className="flex flex-col items-center gap-4 w-full">
 					<CardTitle className="text-2xl font-bold flex  items-center gap-2">
-						<Link href="/" className="flex flex-row items-center gap-2">
-							<Logo
-								className="size-12"
-								logoUrl={
-									whitelabeling?.loginLogoUrl ||
-									whitelabeling?.logoUrl ||
-									undefined
-								}
-							/>
-						</Link>
 						{isCloud ? "Sign Up" : "Setup the server"}
 					</CardTitle>
 					<CardDescription>
