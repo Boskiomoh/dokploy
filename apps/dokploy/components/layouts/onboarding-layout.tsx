@@ -6,10 +6,10 @@ interface Props {
 }
 export const OnboardingLayout = ({ children }: Props) => {
 	const { config: whitelabeling } = useWhitelabelingPublic();
-	const appName = whitelabeling?.appName || "Dokploy";
+	const appName = whitelabeling?.appName || "Nobus Cloud";
 	const appDescription =
 		whitelabeling?.appDescription ||
-		"\u201CThe Open Source alternative to Netlify, Vercel, Heroku.\u201D";
+		"Cloud Management Platform";
 	const logoUrl =
 		whitelabeling?.loginLogoUrl || whitelabeling?.logoUrl || undefined;
 

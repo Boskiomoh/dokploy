@@ -417,7 +417,7 @@ const MENU: Menu = {
 	help: [
 		{
 			name: "Documentation",
-			url: "https://docs.dokploy.com/docs/core",
+			url: "https://nobus.cloud/docs",
 			icon: BookIcon,
 		},
 		{
