@@ -1,6 +1,4 @@
 import { standardSchemaResolver as zodResolver } from "@hookform/resolvers/standard-schema";
-import { Server } from "lucide-react";
-import Link from "next/link";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -179,60 +177,39 @@ export const ShowClusterSettings = ({ id, type }: Props) => {
 
 						{type === "application" && (
 							<>
-								{registries && registries?.length === 0 ? (
-									<div className="pt-10">
-										<div className="flex flex-col items-center gap-3">
-											<Server className="size-8 text-muted-foreground" />
-											<span className="text-base text-muted-foreground">
-												To use a cluster feature, you need to configure at least
-												a registry first. Please, go to{" "}
-												<Link
-													href="/dashboard/settings/cluster"
-													className="text-foreground"
-												>
-													Settings
-												</Link>{" "}
-												to do so.
-											</span>
-										</div>
-									</div>
-								) : (
-									<>
-										<FormField
-											control={form.control}
-											name="registryId"
-											render={({ field }) => (
-												<FormItem>
-													<FormLabel>Select a registry</FormLabel>
-													<Select
-														onValueChange={field.onChange}
-														defaultValue={field.value}
-													>
-														<SelectTrigger>
-															<SelectValue placeholder="Select a registry" />
-														</SelectTrigger>
-														<SelectContent>
-															<SelectGroup>
-																{registries?.map((registry) => (
-																	<SelectItem
-																		key={registry.registryId}
-																		value={registry.registryId}
-																	>
-																		{registry.registryName}
-																	</SelectItem>
-																))}
-																<SelectItem value={"none"}>None</SelectItem>
-																<SelectLabel>
-																	Registries ({registries?.length})
-																</SelectLabel>
-															</SelectGroup>
-														</SelectContent>
-													</Select>
-												</FormItem>
-											)}
-										/>
-									</>
-								)}
+								<FormField
+									control={form.control}
+									name="registryId"
+									render={({ field }) => (
+										<FormItem>
+											<FormLabel>Select a registry</FormLabel>
+											<Select
+												onValueChange={field.onChange}
+												defaultValue={field.value}
+											>
+												<SelectTrigger>
+													<SelectValue placeholder="Select a registry" />
+												</SelectTrigger>
+												<SelectContent>
+													<SelectGroup>
+														{registries?.map((registry) => (
+															<SelectItem
+																key={registry.registryId}
+																value={registry.registryId}
+															>
+																{registry.registryName}
+															</SelectItem>
+														))}
+														<SelectItem value={"none"}>None</SelectItem>
+														<SelectLabel>
+															Registries ({registries?.length})
+														</SelectLabel>
+													</SelectGroup>
+												</SelectContent>
+											</Select>
+										</FormItem>
+									)}
+								/>
 							</>
 						)}
 
