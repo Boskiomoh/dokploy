@@ -457,9 +457,9 @@ export const AddUserPermissions = ({ userId, role }: Props) => {
 									render={({ field }) => (
 										<FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
 											<div className="space-y-0.5">
-												<FormLabel>Access to Traefik Files</FormLabel>
+												<FormLabel>Access to Gateway Configuration</FormLabel>
 												<FormDescription>
-													Allow the user to access to the Traefik Tab Files
+													Allow the user to access the Nobus Gateway configuration
 												</FormDescription>
 											</div>
 											<FormControl>

@@ -39,11 +39,11 @@ export const ShowTraefikSystem = ({ serverId }: Props) => {
 					<CardHeader className="">
 						<CardTitle className="text-xl flex flex-row gap-2">
 							<FileIcon className="size-6 text-muted-foreground self-center" />
-							Traefik File System
+							Nobus Gateway Configuration
 						</CardTitle>
 						<CardDescription>
-							Manage all the files and directories in {"'/etc/dokploy/traefik'"}
-							.
+							Configure network routing rules and gateway settings in{" "}
+							{"'/etc/nobus/traefik'"}.
 						</CardDescription>
 
 						<AlertBlock type="warning">
@@ -70,8 +70,8 @@ export const ShowTraefikSystem = ({ serverId }: Props) => {
 								{directories?.length === 0 && (
 									<div className="w-full flex-col gap-2 flex items-center justify-center h-[55vh]">
 										<span className="text-muted-foreground text-lg font-medium">
-											No directories or files detected in{" "}
-											{"'/etc/dokploy/traefik'"}
+										No directories or files detected in{" "}
+										{"'/etc/nobus/traefik'"}
 										</span>
 										<Folder className="size-8 text-muted-foreground" />
 									</div>

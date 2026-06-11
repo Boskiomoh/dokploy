@@ -76,10 +76,10 @@ export default function SwarmMonitorCard({ serverId }: Props) {
 					<div className="space-y-1">
 						<CardTitle className="text-xl flex flex-row gap-2">
 							<WorkflowIcon className="size-6 text-muted-foreground self-center" />
-							Docker Swarm Overview
+							Nobus Cluster Overview
 						</CardTitle>
 						<p className="text-sm text-muted-foreground">
-							Monitor and manage your Docker Swarm cluster
+							Monitor and manage your Nobus cluster
 						</p>
 					</div>
 					{!serverId && (

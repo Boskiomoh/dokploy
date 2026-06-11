@@ -116,7 +116,7 @@ export const ShowTraefikFile = ({ path, serverId }: Props) => {
 								name="traefikConfig"
 								render={({ field }) => (
 									<FormItem className="relative">
-										<FormLabel>Traefik config</FormLabel>
+										<FormLabel>Gateway config</FormLabel>
 										<FormDescription className="break-all">
 											{path}
 										</FormDescription>

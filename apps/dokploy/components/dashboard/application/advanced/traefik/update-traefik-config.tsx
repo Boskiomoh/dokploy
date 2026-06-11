@@ -151,7 +151,7 @@ export const UpdateTraefikConfig = ({ applicationId }: Props) => {
 								name="traefikConfig"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Traefik config</FormLabel>
+										<FormLabel>Gateway config</FormLabel>
 										<FormControl>
 											<CodeEditor
 												lineWrapping

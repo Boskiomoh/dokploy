@@ -30,11 +30,11 @@ export const ShowTraefikConfig = ({ applicationId }: Props) => {
 		<Card className="bg-background">
 			<CardHeader className="flex flex-row justify-between">
 				<div>
-					<CardTitle className="text-xl">Traefik</CardTitle>
+					<CardTitle className="text-xl">Gateway</CardTitle>
 					<CardDescription>
-						Modify the traefik config, in rare cases you may need to add
+						Modify the gateway config, in rare cases you may need to add
 						specific config, be careful because modifying incorrectly can break
-						traefik and your application
+						the gateway and your application
 					</CardDescription>
 				</div>
 			</CardHeader>

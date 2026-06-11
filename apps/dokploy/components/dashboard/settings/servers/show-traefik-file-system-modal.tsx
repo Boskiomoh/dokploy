@@ -17,7 +17,7 @@ export const ShowTraefikFileSystemModal = ({ serverId }: Props) => {
 					className="w-full cursor-pointer "
 					onSelect={(e) => e.preventDefault()}
 				>
-					Show Traefik File System
+					Nobus Gateway Config
 				</DropdownMenuItem>
 			</DialogTrigger>
 			<DialogContent className="sm:max-w-7xl  ">

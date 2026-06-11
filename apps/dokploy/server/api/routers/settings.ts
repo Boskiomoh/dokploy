@@ -603,7 +603,10 @@ export const settingsRouter = createTRPCRouter({
 				const { MAIN_TRAEFIK_PATH } = paths(!!input?.serverId);
 				const result = await readDirectory(MAIN_TRAEFIK_PATH, input?.serverId);
 				return result || [];
-			} catch (error) {
+			} catch (error: any) {
+				if (error?.code === "ENOENT") {
+					return [];
+				}
 				throw error;
 			}
 		}),

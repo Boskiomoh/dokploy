@@ -73,7 +73,7 @@ export const ShowTraefikActions = ({ serverId }: Props) => {
 					}
 					variant="outline"
 				>
-					Traefik
+					Gateway
 				</Button>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent className="w-56" align="start">
@@ -89,7 +89,7 @@ export const ShowTraefikActions = ({ serverId }: Props) => {
 							} catch (error) {
 								const errorMessage =
 									(error as Error)?.message ||
-									"Failed to reload Traefik. Please try again.";
+									"Failed to reload the gateway. Please try again.";
 								toast.error(errorMessage);
 							}
 						}}
@@ -122,20 +122,20 @@ export const ShowTraefikActions = ({ serverId }: Props) => {
 					<DialogAction
 						title={
 							haveTraefikDashboardPortEnabled
-								? "Disable Traefik Dashboard"
-								: "Enable Traefik Dashboard"
+								? "Disable Gateway Dashboard"
+								: "Enable Gateway Dashboard"
 						}
 						description={
 							<div className="space-y-4">
 								<AlertBlock type="warning">
-									The Traefik container will be recreated from scratch. This
+									The gateway container will be recreated from scratch. This
 									means the container will be deleted and created again, which
 									may cause downtime in your applications.
 								</AlertBlock>
 								<p>
 									Are you sure you want to{" "}
 									{haveTraefikDashboardPortEnabled ? "disable" : "enable"} the
-									Traefik dashboard?
+									gateway dashboard?
 								</p>
 							</div>
 						}

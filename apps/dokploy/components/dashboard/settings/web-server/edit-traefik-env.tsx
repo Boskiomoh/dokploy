@@ -109,9 +109,9 @@ export const EditTraefikEnv = ({ children, serverId }: Props) => {
 			<DialogTrigger asChild>{children}</DialogTrigger>
 			<DialogContent className="sm:max-w-4xl">
 				<DialogHeader>
-					<DialogTitle>Update Traefik Environment</DialogTitle>
+					<DialogTitle>Update Gateway Environment</DialogTitle>
 					<DialogDescription>
-						Update the traefik environment variables
+						Update the gateway environment variables
 					</DialogDescription>
 				</DialogHeader>
 				{isError && <AlertBlock type="error">{error?.message}</AlertBlock>}

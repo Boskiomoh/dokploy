@@ -174,7 +174,7 @@ export const ShowRequests = () => {
 								</div>
 								<DialogAction
 									title={isActive ? "Deactivate Requests" : "Activate Requests"}
-									description="You will also need to restart Traefik to apply the changes"
+									description="You will also need to restart the gateway to apply the changes"
 									type={isActive ? "destructive" : "default"}
 									onClick={async () => {
 										await toggleRequests({ enable: !isActive })

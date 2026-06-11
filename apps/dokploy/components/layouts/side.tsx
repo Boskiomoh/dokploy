@@ -190,7 +190,7 @@ const MENU: Menu = {
 		},
 		{
 			isSingle: true,
-			title: "Container Registry",
+			title: "Active Containers",
 			url: "/dashboard/docker",
 			icon: BlocksIcon,
 			// Only enabled for users with access to Docker in non-cloud environments
