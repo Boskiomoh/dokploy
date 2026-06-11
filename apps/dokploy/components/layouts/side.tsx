@@ -561,10 +561,10 @@ function SidebarLogo() {
 						isCollapsed ? "justify-center h-10 w-10 mx-auto" : "h-12 w-full",
 					)}
 				>
-					{/* biome-ignore lint/performance/noImgElement: Nobus logo */}
-					<img
+				{/* biome-ignore lint/performance/noImgElement: Nobus logo */}
+				<img
 						src="/nobus-logo.png"
-						alt="Nobus logo"
+						alt="Nobus"
 						className={cn(
 							"object-contain transition-all",
 							isCollapsed ? "h-6 w-6" : "h-7 w-auto",

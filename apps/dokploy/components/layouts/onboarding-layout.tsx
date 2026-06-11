@@ -25,7 +25,7 @@ export const OnboardingLayout = ({ children }: Props) => {
 				/>
 				<img 
 					src="/nobus-logo.png" 
-					alt="Nobus Cloud" 
+					alt="Nobus" 
 					className="relative z-20 w-56 drop-shadow-2xl" 
 				/>
 			</div>
