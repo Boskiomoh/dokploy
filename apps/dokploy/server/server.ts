@@ -10,7 +10,7 @@ import {
 	initializeNetwork,
 	initSchedules,
 	initVolumeBackupsCronJobs,
-	sendDokployRestartNotifications,
+	sendNobusRestartNotifications,
 	setupDirectories,
 } from "@dokploy/server";
 import { config } from "dotenv";
@@ -65,7 +65,7 @@ void app.prepare().then(async () => {
 			await initSchedules();
 			await initCancelDeployments();
 			await initVolumeBackupsCronJobs();
-			await sendDokployRestartNotifications();
+			await sendNobusRestartNotifications();
 		}
 		await initEnterpriseBackupCronJobs();
 

@@ -25,7 +25,7 @@ export const InvitationEmail = ({
 	toEmail,
 	organizationName = "an organization",
 }: InvitationEmailProps) => {
-	const previewText = `You've been invited to join ${organizationName} on Dokploy`;
+	const previewText = `You've been invited to join ${organizationName} on Nobus Cloud`;
 	return (
 		<Html>
 			<Head />
@@ -46,10 +46,10 @@ export const InvitationEmail = ({
 						{/* Header */}
 						<Section className="bg-[#09090b] rounded-t-xl px-[40px] py-[32px] text-center">
 							<Img
-								src="https://raw.githubusercontent.com/Dokploy/website/refs/heads/main/apps/docs/public/logo-dokploy-blackpng.png"
+								src="https://raw.githubusercontent.com/nobus-cloud/nobus/refs/heads/main/apps/dokploy/logo.png"
 								width="190"
 								height="120"
-								alt="Dokploy"
+								alt="Nobus Cloud"
 								className="my-0 mx-auto"
 							/>
 						</Section>
@@ -62,7 +62,7 @@ export const InvitationEmail = ({
 							<Text className="text-[#71717a] text-[14px] leading-[22px] m-0 mb-[24px]">
 								You have been invited to join{" "}
 								<strong className="text-[#09090b]">{organizationName}</strong>{" "}
-								on Dokploy, the platform for deploying your apps to the cloud.
+								on Nobus Cloud, the platform for deploying your apps to the cloud.
 								Click the button below to accept the invitation.
 							</Text>
 
@@ -93,10 +93,10 @@ export const InvitationEmail = ({
 								<span className="text-[#71717a]">{toEmail}</span>. This invite
 								was sent from{" "}
 								<Link
-									href="https://dokploy.com"
+									href="https://nobus.cloud"
 									className="text-[#71717a] underline"
 								>
-									Dokploy Cloud
+									Nobus Cloud
 								</Link>
 								. If you were not expecting this invitation, you can safely
 								ignore this email.

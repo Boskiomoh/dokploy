@@ -209,7 +209,7 @@ const Register = ({ isCloud }: Props) => {
 												<FormItem>
 													<FormLabel>Email</FormLabel>
 													<FormControl>
-														<Input placeholder="email@dokploy.com" {...field} />
+														<Input placeholder="email@nobus.cloud" {...field} />
 													</FormControl>
 													<FormMessage />
 												</FormItem>
@@ -275,7 +275,7 @@ const Register = ({ isCloud }: Props) => {
 									Need help?
 									<Link
 										className="underline"
-										href="https://dokploy.com"
+										href="https://nobus.cloud"
 										target="_blank"
 									>
 										Contact us

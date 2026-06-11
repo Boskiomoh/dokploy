@@ -85,13 +85,9 @@ export default function Custom404({ statusCode, error }: Props) {
 							{whitelabeling?.footerText ? (
 								whitelabeling.footerText
 							) : (
-								<Link
-									href="https://github.com/Dokploy/dokploy/issues"
-									target="_blank"
-									className="underline hover:text-primary transition-colors"
-								>
-									Submit Log in issue on Github
-								</Link>
+								<span className="text-gray-500">
+									Nobus Cloud v1.0
+								</span>
 							)}
 						</p>
 					</div>

@@ -17,8 +17,8 @@ const app = new Hono();
 
 // Initialize Inngest client
 export const inngest = new Inngest({
-	id: "dokploy-deployments",
-	name: "Dokploy Deployment Service",
+	id: "nobus-deployments",
+	name: "Nobus Deployment Service",
 });
 
 export const deploymentFunction = inngest.createFunction(
